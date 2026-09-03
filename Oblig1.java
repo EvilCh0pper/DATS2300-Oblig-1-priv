@@ -15,18 +15,21 @@ public class Oblig1 {
     
     // Oppgave 7
     public static void rotasjon(char[] a, int k) {
+        char[] b = a.clone();
+
         if (a.length <= 1) {
             return; // Sjekker om tabellen er tom eller har ett element. Gjør ingenting hvis kravet blir oppfylt.
         }
-        char x = a[a.length - k]; // Sørger for å lagre siste element i tabellen før den blir overskrevet av resten av løkken.
-
-        for (int i = a.length - 2; i >= 0; i--) {
-            a[i + k] = a[i];
+        
+        for (int i = 0; i < a.length; i++) {
+            int pos = ((i+k) % a.length); // tar høyde for om k > a.length
+            if (pos < 0) pos += a.length; // Hvis k er et negativt tall, legger vi til arrayens lengde for å ta høyde for dette
+            b[pos] = a[i];
         }
 
-        a[0] = x; // Setter inn det lagrede siste elementet fra tidligere i starten av tabellen.
-    }
+        System.arraycopy(b, 0, a, 0, a.length);
 
+    }
      // Oppgave 8
     public static String flett(String s, String t) {
         String mergedString = "";
@@ -87,6 +90,11 @@ public class Oblig1 {
         //System.out.println(flett("ABC", "DEF"));
         //System.out.println(flett("", "deff"));
         //System.out.println(flett("ACEGIK", "BDFHJLMN"));
-        System.out.println(flett("AM ", "L", "GEDS", "ORATKRR", "","R TRTE", "IO", "TGAUU"));
+        //System.out.println(flett("AM ", "L", "GEDS", "ORATKRR", "","R TRTE", "IO", "TGAUU"));
+
+        char[] a = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        char[] b = {'A', 'B'};
+        rotasjon(a, -16);
+        rotasjon(b, -1);
     }
 }
