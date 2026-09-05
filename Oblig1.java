@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Oblig1 {
     // Oppgave 6
     public static void rotasjon(char[] a) {
@@ -85,6 +87,46 @@ public class Oblig1 {
 
     }
 
+    //oppgave 11
+    public static boolean inneholdt(String a, String b){        
+        // Hashmap som lagrer forekomsten av hver bokstav
+        HashMap<Character, Integer> frequency = new HashMap<>();
+        
+        //1)Itererer gjennom String a, legger til bokstaver i HashMapen om de ikke er der. Hvis bokstaven på a.charAt(i) er i HashMappen, legger den til +1 
+        for (int i = 0; i < a.length(); i++){
+            frequency.put(a.charAt(i), frequency.getOrDefault(a.charAt(i), 0)+1);
+        }
+        
+        //Itererer gjennom String b. Tanken bak algoritmen er at vi "krysser av" hver gang vi finner en bokstav i String b som eksisterer i String a. Hvis den gjør det, så kjører vi -1 på den bokstaven.
+        for (int i = 0; i < b.length(); i++){
+            
+            if (frequency.containsKey(b.charAt(i))) { //Sjekker først om bokstaven på b.charAt(i) eksistererer i hashmappen. 
+                if (frequency.get(b.charAt(i)) > 0) { // Sjekker om verdien er 0. Hvis den er 0, så har vi "krysset av" for alle forekomster av bokstaven i String b
+                    frequency.put(b.charAt(i), frequency.get(b.charAt(i))-1); //Bokstaven er i String b, og vi krysser av for den
+                }
+            }
+        }
+        // Sjekker om frekvensen av hver bokstav er krysset av. Hvis bare én ikke er 0, betyr det i praksis at String b ikke inneholder String a, og dermed returnerer vi false
+        for (Integer letterFrequency : frequency.values()){
+            if (letterFrequency > 0) {
+                return false;
+            }
+        }
+
+        return true;
+        
+        /*
+        for (int i = 0; i < b.length(); i++){
+            if (b.charAt(0) == aIsNowAnArray[indeks]){
+                indeks++;
+            }
+            if (indeks == b.length()){
+                return true;
+            }
+        }
+        return false;*/
+    }
+
     public static void main(String[] args) {
         //System.out.println(flett("IJKLMN","OPQ"));
         //System.out.println(flett("ABC", "DEF"));
@@ -96,5 +138,7 @@ public class Oblig1 {
         char[] b = {'A', 'B'};
         rotasjon(a, -16);
         rotasjon(b, -1);
+        
+        System.out.println(inneholdt("ABBA", "ABCDE"));
     }
 }
