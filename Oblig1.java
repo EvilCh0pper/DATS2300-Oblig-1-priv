@@ -90,6 +90,8 @@ public class Oblig1 {
 
     //Oppgave 9
     public static int[] indeksSortering(int[] a) {
+        if (a.length < 1) return a;
+        
         //Tom liste som er like lang som a
         int[]sortertIndeks = new int[a.length];
 
@@ -120,10 +122,8 @@ public class Oblig1 {
                 }
             }
             
-            if(brukt[pos] == false) {
-                sortertIndeks[i] = pos;
-                brukt[pos] = true;
-            }
+            sortertIndeks[i] = pos;
+            brukt[pos] = true;
             
             // {6, 10, 16, 11, 7, 12, 3, 9, 8, 5}
             //indeks er nå {6, 9, 0, 4, 8, 7, 1, 3, 5, 2}.
