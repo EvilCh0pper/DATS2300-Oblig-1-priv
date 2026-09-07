@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Oblig1 {
@@ -87,6 +88,73 @@ public class Oblig1 {
 
     }
 
+    //Oppgave 9
+    public static int[] indeksSortering(int[] a) {
+        //Tom liste som er like lang som a
+        int[]sortertIndeks = new int[a.length];
+
+        boolean[] brukt = new boolean[a.length];
+        
+        //Gå gjennom a
+        int peker = a[0];
+        int pos = 0;
+        for (int i = 0; i < a.length; i++){
+            
+            //Iterer gjennom a
+            //iterer gjennom sortert indeks
+            //brukt funker som en hjelpearray for å bekrefte at vi har sjekket et tall
+            for (int k = 0; k < brukt.length; k++){
+                if (brukt[k] == false){
+                    peker = a[k];
+                    pos = k;
+                    break;
+                }
+            }
+                
+            for (int j = 0; j < a.length; j++) {
+                if(peker > a[j]) {
+                    if(brukt[j] == false){
+                        peker = a[j];
+                        pos = j;
+                    }
+                }
+            }
+            
+            if(brukt[pos] == false) {
+                sortertIndeks[i] = pos;
+                brukt[pos] = true;
+            }
+            
+            // {6, 10, 16, 11, 7, 12, 3, 9, 8, 5}
+            //indeks er nå {6, 9, 0, 4, 8, 7, 1, 3, 5, 2}.
+
+
+            /*//Start på et element i plass i
+            int peker = a[i];
+            int pos = i; //husk på posisjonen
+            for (int j = 0; j < a.length; j++){ //sammenlikn [i] med resten av tallene
+                if (peker > a[j]) { //hvis pekeren er større enn a[j], vil vi at pekeren skal bli det
+                    for (int k = 0; k <checkpoints.length; k++) { //sjekker at indeksposisjonen ikke er lagt til at
+                        if (checkpoints[k] != false){
+                            peker = a[j];
+                            pos = j;
+                        }
+                    }
+                    
+                } //gjør at pekeren blir til den laveste verdien
+            }
+            //bytt
+            sortertIndeks[i] = pos;
+            //selekterer et element
+            checkpoints[i] = true;
+
+            //Sjekk at a[i]*/
+        }
+
+        return sortertIndeks;
+    }
+    // 7,10,9,4,8,5,2,3,1
+
     //oppgave 11
     public static boolean inneholdt(String a, String b){        
         // Hashmap som lagrer forekomsten av hver bokstav
@@ -139,6 +207,9 @@ public class Oblig1 {
         rotasjon(a, -16);
         rotasjon(b, -1);
         
-        System.out.println(inneholdt("ABBA", "ABCDE"));
+        //System.out.println(inneholdt("ABBA", "ABCDE"));
+        int[] myArray = {6, 10, 16, 11, 7, 12, 3, 9, 8, 5};
+        //indeks er nå {6, 9, 0, 4, 8, 7, 1, 3, 5, 2}.
+        System.out.println(Arrays.toString(indeksSortering(myArray)));
     }
 }
